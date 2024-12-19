@@ -131,8 +131,11 @@ echo "<!DOCTYPE html>
 <body>
     <div class='snowflakes'></div> <!-- Snowflakes container -->
 
-    <h1>Bērnu Vēstules:</h1>
-
+    <h1>Bērnu Vēstules: <br>
+    <img src='pretty.avif' width='200' height='300'> <br>
+    <img src='vecis.png' width='400' height='200'>
+    </h1>
+    
     <div class='content'>";
 
 foreach ($children_with_letters as $child) {
@@ -143,11 +146,6 @@ foreach ($children_with_letters as $child) {
     // Pārbauda vidējo atzīmi un piešķir krāsu
     $avg_grade = isset($child_grades[$child_id]) ? $child_grades[$child_id] : 0;
     $grade_class = ($avg_grade < 5) ? 'low-grade' : 'high-grade'; // Sarkans vai zaļš atkarībā no atzīmes
-
-    // Ja vidējā atzīme ir zem 5, bērns nevar saņemt dāvanas
-    if ($avg_grade < 5) {
-        continue;  // Skip bērnus ar atzīmi zem 5
-    }
 
     // Meklē un izceļ dāvanu nosaukumus vēstulē
     foreach ($gifts as $gift) {
@@ -162,6 +160,11 @@ foreach ($children_with_letters as $child) {
             <h2>{$child['firstname']} {$child['middlename']} {$child['surname']} ({$child['age']} gadi)</h2>
             <p class='{$grade_class}'><strong>Vidējā atzīme:</strong> {$avg_grade}</p>
             <p><strong>Vēstule:</strong> $letter_text</p>";
+
+    // Ja vidējā atzīme ir zem 5, pievieno attēlu "angry.png"
+    if ($avg_grade < 5) {
+        echo "<p><img src='angry.jpg' alt='Angry Face' style='width:150px; height:150px;'></p>";
+    }
 
     // Izvada atrasto dāvanu sarakstu
     if (!empty($matched_gifts)) {
